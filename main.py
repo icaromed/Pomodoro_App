@@ -4,7 +4,7 @@ def sleep():
     sleep_time = int(input("When do you wanna sleep? (01-24) "))
     sleep_hours = int(input("How much hours of sleep do you want? (01-24) "))
 
-    print(pomodoro.Pomo(sleep_time, sleep_hours))
+    #print(pomodoro.Pomo(sleep_time, sleep_hours))
     print(pomodoro.Pomo(sleep_time, sleep_hours).remove_sleep_time())
 
 
