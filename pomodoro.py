@@ -1,38 +1,57 @@
-class Pomo(object):
+class Pomo(object):       
     
-    def __init__ (self):
+    def __init__ (self, hours_format):
+        self.__hours_format = hours_format 
+        
         self.__name = input("What is your name? ")
 
         self.__sleep = (int(input("When do you wanna sleep? (01-24) ")))
 
         self.__sleep_hours = int(input("How many hours of sleep is good for you? (01-24) "))
-    
-    global time_ad
-    @staticmethod 
-    def time_ad(time):
-        while time > 24:
-            time -=24
-        return time
 
+        self.__wake_up = self.__sleep + self.__sleep_hours
+    
     def sleeping (self):
         self.checking = False
         while self.checking == False:
-            print ("Great! So you're sleeping at {:}h and waking up at {:}h. Those are {:} hours of sleep."
-            .format(time_ad(self.__sleep), time_ad(self.__sleep + self.__sleep_hours) ,time_ad(self.__sleep_hours)))
+            print ("Great! So you're sleeping at {:} and waking up at {:}. Those are {:} hours of sleep."
+            .format(self.sleep, self.wake_up ,self.__sleep_hours))
             
             if(input("Is that fine for you? (yes|no) ").lower().strip()!="yes"):
                 self.sleep_hours = int(input("Type a new number of sleeping hours: "))
             else:
                 self.checking = True
     
-
     @property
-    def sleep_hours(self):
-        return self._Pomo__sleep_hours
+    def sleep(self):
+        time = time_format(self, self.__sleep, self.__hours_format)
+        return time
+    
+    @property
+    def wake_up(self):
+        time = time_format(self, self.__wake_up, self.__hours_format)
+        return time
 
-    @sleep_hours.setter
+    #fix that
+    """@sleep_hours.setter
     def sleep_hours(self, new_hours):
-        self.__sleep_hours = new_hours
+        return new_hours"""
+    
+    global time_format
+    def time_format(self, time, format):
+        while time > 24:
+            time -=24
+        if int(format) == 24:
+            return "{}hrs".format(time)
+        else:
+            if 11 >= time >= 1:
+                return "{} am".format(time)
+            elif time >= 24:
+                return "{} am".format(time)
+            else:
+                time -= 12
+                return "{} pm".format(time)
+    
 
 #for testing
 if __name__=="__main__":
@@ -41,4 +60,5 @@ if __name__=="__main__":
 #implementations:
 
 #choice of AM/PM or 24h
-#fix error of str at input                                                                                                                            
+#fix error of str at input   
+#fix  @sleep_hours setter                                                                                                                          
