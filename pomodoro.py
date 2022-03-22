@@ -1,15 +1,15 @@
-class Pomo(object):       
+class Pomo():       
     
     def __init__ (self, hours_format):
         self.__hours_format = hours_format 
         
-        self.__name = input("What is your name? ")
-
         self.__sleep = (int(input("When do you wanna sleep? (01-24) ")))
 
         self.__sleep_hours = int(input("How many hours of sleep is good for you? (01-24) "))
 
         self.__wake_up = self.__sleep + self.__sleep_hours
+
+        self.sleeping()
     
     def sleeping (self):
         self.checking = False
@@ -55,10 +55,9 @@ class Pomo(object):
 
 #for testing
 if __name__=="__main__":
-    test = Pomo().sleeping()
+    test = Pomo("12").sleeping()
 
 #implementations:
 
-#choice of AM/PM or 24h
 #fix error of str at input   
 #fix  @sleep_hours setter                                                                                                                          

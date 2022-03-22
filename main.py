@@ -1,12 +1,13 @@
-import pomodoro
+from user import User 
 
 def run():
        
-    if input("Welcome to the Pomodoro Routine App\r\n\r\nWould you like to create your custom routine schedule? (yes|no) ").lower().strip() == "yes":
-        user = pomodoro.Pomo(input("Choose you preference: ('12' for 12 hours format or '24' for 24 hours format) "))
-        user.sleeping()
+    print("Welcome to the Pomodoro Routine App\r\n")
+
+    #will call the creation of a new user
+    user = User()
     
-    print("\r\nThanks for using our app!")
+    print("\r\nThanks for using our app, {}!".format(user._name))
 
 
 if __name__ == "__main__":
