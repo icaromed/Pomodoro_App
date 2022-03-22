@@ -3,7 +3,7 @@ class Pomo():
     def __init__ (self, hours_format):
         self.__hours_format = hours_format 
         
-        self.__sleep = (int(input("When do you wanna sleep? (01-24) ")))
+        self.__sleep = int(input("When do you wanna sleep? (01-24) "))
 
         self.__sleep_hours = int(input("How many hours of sleep is good for you? (01-24) "))
 
@@ -13,6 +13,7 @@ class Pomo():
     
     def sleeping (self):
         self.checking = False
+        
         while self.checking == False:
             print ("Great! So you're sleeping at {:} and waking up at {:}. Those are {:} hours of sleep."
             .format(self.sleep, self.wake_up ,self.__sleep_hours))
@@ -21,6 +22,7 @@ class Pomo():
                 self.sleep_hours = int(input("Type a new number of sleeping hours: "))
             else:
                 self.checking = True
+                break
     
     @property
     def sleep(self):
@@ -29,13 +31,19 @@ class Pomo():
     
     @property
     def wake_up(self):
+        self.__wake_up = self.__sleep + self.__sleep_hours
         time = time_format(self, self.__wake_up, self.__hours_format)
         return time
+    
+    @property
+    def sleep_hours(self):
+        time = time_format(self, self.__sleep_hours, self.__hours_format)
+        return time
 
-    #fix that
-    """@sleep_hours.setter
+    @sleep_hours.setter
     def sleep_hours(self, new_hours):
-        return new_hours"""
+        self.__sleep_hours = new_hours
+    
     
     global time_format
     def time_format(self, time, format):
@@ -60,4 +68,4 @@ if __name__=="__main__":
 #implementations:
 
 #fix error of str at input   
-#fix  @sleep_hours setter                                                                                                                          
+                                                                                                                         
