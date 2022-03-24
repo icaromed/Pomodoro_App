@@ -3,20 +3,22 @@ class Pomo():
     def __init__ (self, hours_format):
         self.__hours_format = hours_format 
         
-        self.__sleep = int(input("When do you wanna sleep? (01-24) "))
+        self._sleep = int(input("When do you wanna sleep? (01-24) "))
 
-        self.__sleep_hours = int(input("How many hours of sleep is good for you? (01-24) "))
+        self.sleep_hours = int(input("How many hours of sleep is good for you? (01-24) "))
 
-        self.__wake_up = self.__sleep + self.__sleep_hours
+        self.__wake_up = self._sleep + self._sleep_hours
 
         self.sleeping()
+    
     
     def sleeping (self):
         self.checking = False
         
         while self.checking == False:
-            print ("Great! So you're sleeping at {:} and waking up at {:}. Those are {:} hours of sleep."
-            .format(self.sleep, self.wake_up ,self.__sleep_hours))
+            
+            print (f"Great! So you're sleeping at {self.sleep[0]} {self.sleep[1]} " 
+            f"and waking up at {self.wake_up[0]} {self.wake_up[1]}. Those are {self._sleep_hours} hours of sleep.")
             
             if(input("Is that fine for you? (yes|no) ").lower().strip()!="yes"):
                 self.sleep_hours = int(input("Type a new number of sleeping hours: "))
@@ -26,39 +28,46 @@ class Pomo():
     
     @property
     def sleep(self):
-        time = time_format(self, self.__sleep, self.__hours_format)
+        time = time_format(self, self._sleep, self.__hours_format)
         return time
     
     @property
     def wake_up(self):
-        self.__wake_up = self.__sleep + self.__sleep_hours
+        self.__wake_up = self._sleep + self._sleep_hours
         time = time_format(self, self.__wake_up, self.__hours_format)
         return time
     
     @property
     def sleep_hours(self):
-        time = time_format(self, self.__sleep_hours, self.__hours_format)
-        return time
+        return self._sleep_hours
 
     @sleep_hours.setter
     def sleep_hours(self, new_hours):
-        self.__sleep_hours = new_hours
-    
+        self._sleep_hours = new_hours  
     
     global time_format
     def time_format(self, time, format):
         while time > 24:
             time -=24
         if int(format) == 24:
-            return "{}hrs".format(time)
+            return (time, "hrs")
         else:
             if 11 >= time >= 1:
-                return "{} am".format(time)
-            elif time >= 24:
-                return "{} am".format(time)
+                return (time, "am")
+            
+            elif time >= 24 or time < 1:
+                if time < 1:
+                    pass
+                else:
+                    time -= 12
+                return (time, "midnight")
+            
+            elif 13 > time:
+                return (time, "noon") 
+            
             else:
                 time -= 12
-                return "{} pm".format(time)
+                return (time, "pm")
     
 
 #for testing
