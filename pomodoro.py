@@ -1,13 +1,21 @@
-class Pomo():       
+from typing import ClassVar
+from datetime import datetime
+
+class Pomo():
     
     def __init__ (self, hours_format):
-        self.__hours_format = hours_format 
+        self.__hours_format = hours_format
+        self.error = False 
         
-        self._sleep = int(input("When do you wanna sleep? (01-24) "))
+        try:
+            self._sleep = int(input("When do you wanna sleep? (01-24) "))
+            self.sleep_hours = int(input("How many hours of sleep is good for you? (01-24) "))
+            self.__wake_up = self._sleep + self._sleep_hours
+        except:
+            print("\r\nType a valid number")
+            self.error = True
 
-        self.sleep_hours = int(input("How many hours of sleep is good for you? (01-24) "))
-
-        self.__wake_up = self._sleep + self._sleep_hours
+        
     
     def sleeping (self):
         self.checking = False
@@ -18,16 +26,19 @@ class Pomo():
             f"and waking up at {self.wake_up[0]} {self.wake_up[1]}. Those are {self._sleep_hours} hours of sleep.")
             
             if(input("Is that fine for you? (yes|no) ").lower().strip()!="yes"):
-                self.sleep_hours = int(input("Type a new number of sleeping hours: "))
+                try:
+                    self.sleep_hours = int(input("Type a new number of sleeping hours: "))
+                except:
+                    print("\r\nType a valid number")
+                    self.error = True
             else:
                 self.checking = True
-                break
     
     def activity_range(self):
         print_range = ([self.wake_up, self.sleep])
-        true_range = ([self.__wake_up, self._sleep])
+        true_range = ([self.__wake_up, self._sleep - 1])
         
-        print(f"Your activity range is from {print_range[0][0]} {print_range[0][1]} to {print_range[1][0]} {print_range[1][1]}.")
+        print(f"Your activity range is from {print_range[0][0]} {print_range[0][1]} to {print_range[1][0]} {print_range[1][1]}.\r\n")
         
         return range(true_range[0], true_range[1]) 
    
@@ -64,11 +75,11 @@ class Pomo():
             time -=24
         
         if int(format) == 24:
-            return (time, "hrs")
+            return (datetime.strptime(str(time), '%H').strftime('%H'), "hrs")
         
         else:
             if 11 >= time >= 1:
-                return (time, "am")
+                return (datetime.strptime(str(time),'%H').strftime('%H'), "am")
             
             elif time >= 24 or time < 1:
                 if time < 1:
@@ -76,14 +87,14 @@ class Pomo():
 
                 else:
                     time -= 12
-                return (time, "midnight")
+                return (datetime.strptime(str(time),'%H').strftime('%H'), "midnight")
             
             elif 13 > time:
-                return (time, "noon") 
+                return (datetime.strptime(str(time),'%H').strftime('%H'), "noon") 
             
             else:
                 time -= 12
-                return (time, "pm")
+                return (datetime.strptime(str(time),'%H').strftime('%H'), "pm")
     
 
 #for testing
