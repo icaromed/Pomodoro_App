@@ -19,3 +19,5 @@ if __name__ == "__main__":
 
 #integrate customised pomodoro clock
 #the creation of the schedule
+#what are the days of the week that you want to use this pomo?
+#implement datetime
