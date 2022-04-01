@@ -14,8 +14,8 @@ class User(Sleep, Pomodoro):
     def available_time(self):   
         if input("Would you like to create your custom routine schedule? (yes|no) ").lower().strip() == "yes":
             
-            super().__init__(input("\r\nChoose you preference: ('12' for 12 hours format or '24' for 24 hours format) "))   
-            if self.error == False:
+            super().__init__(input("\r\nChoose you preference: ('12' for 12 hours format or '24' for 24 hours format) "))
+            if not self.error:
                 self.sleeping()
                 return self.activity_range()
                 
@@ -32,6 +32,7 @@ class User(Sleep, Pomodoro):
                 
                 if input("What do you prefer? ").lower().strip() == "":
                     self.pomodoro()
+                # put the inputs here
                 else:
                     number = 0
                     duration = 0
@@ -40,25 +41,13 @@ class User(Sleep, Pomodoro):
 
         else:
             print("Well, it's not time for Pomo.")
-            print(self.next_pomo)
+            print(self.next_pomo())
 
     def next_pomo(self):
         time_h = self.actual_time
-        hours = 0
-        
-        for _ in range(24):
-            if time_h in self.available_range:
-                return "Your next pomo is in {hours} hours."
-            else:
-                hours += 1
-                time_h += 1
+        hours = self._wake_up - time_h
+        return f"Your next pomo is in {hours} hours."
 
-
-
-        
-           
-        
-            
 
 if __name__ == "__main__":
     
