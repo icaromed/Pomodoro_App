@@ -10,7 +10,7 @@ class Sleep():
         try:
             self._sleep = int(input("When do you wanna sleep? (01-24) "))
             self.sleep_hours = int(input("How many hours of sleep is good for you? (01-24) "))
-            self.__wake_up = self._sleep + self._sleep_hours
+            self._wake_up = self._sleep + self._sleep_hours
         except:
             print("\r\nType a valid number")
             self.error = True
@@ -36,10 +36,10 @@ class Sleep():
     
     def activity_range(self):
         print_range = ([self.wake_up, self.sleep])
-        true_range = ([self.__wake_up, self._sleep - 1])
+        true_range = ([self._wake_up, self._sleep - 1])
         
         print(f"Your activity range is from {print_range[0][0]} {print_range[0][1]} to {print_range[1][0]} {print_range[1][1]}.\r\n")
-        
+
         return range(true_range[0], true_range[1]) 
    
     @property
@@ -51,10 +51,10 @@ class Sleep():
     @property
     def wake_up(self):
         
-        self.__wake_up = self._sleep + self._sleep_hours
-        while self.__wake_up > 24:
-            self.__wake_up -= 24  
-        time = time_format(self, self.__wake_up, self.__hours_format)
+        self._wake_up = self._sleep + self._sleep_hours
+        while self._wake_up > 24:
+            self._wake_up -= 24
+        time = time_format(self, self._wake_up, self.__hours_format)
         return time
     
     @property
