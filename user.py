@@ -11,7 +11,6 @@ class User(Sleep, Pomodoro):
         super().__init__(hours_format)
         self._name = input("What is your name? ")
         self._avaiable_range = self.available_time()
-        self.pomodoro_timer()
         self.actual_time = int(datetime.now().strftime('%H'))
 
     def available_time(self):
@@ -50,6 +49,10 @@ class User(Sleep, Pomodoro):
         time_h = self.actual_time
         hours = self._wake_up - time_h
         return f"Your next pomo is in {hours} hours."
+
+    @property
+    def name(self):
+        return self._name
 
 
 if __name__ == "__main__":
