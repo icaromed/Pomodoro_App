@@ -7,9 +7,9 @@ def run():
 
     # will call the creation of a new user
     user = User()
-    user.pomodoro_timer()
+    # user.pomodoro_timer()
     
-    print("\r\nThanks for using our app, {}!".format(user.name))
+    print("Thanks for using our app, {}!".format(user.name))
 
 
 if __name__ == "__main__":
@@ -22,4 +22,3 @@ if __name__ == "__main__":
 # integrate customised pomodoro clock
 # the creation of the schedule
 # what are the days of the week that you want to use this pomo?
-# implement datetime
