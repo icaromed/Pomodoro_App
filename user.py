@@ -5,26 +5,19 @@ from pomodoro import Pomodoro
 
 class User(Sleep, Pomodoro):
 
-    def __init__(self, hours_format=input("\r\nChoose you preference"
-                                          ": ('12' for 12 hours format or '24' for 24 hours format) ")):
+    def __init__(self):
 
-        super().__init__(hours_format)
         self._name = input("What is your name? ")
-        self._avaiable_range = self.available_time()
-        self.actual_time = int(datetime.now().strftime('%H'))
-
-    def available_time(self):
-        if input("Would you like to create your custom routine schedule? (yes|no) ").lower().strip() == "yes":
-
-            super().__init__(input("\r\nChoose you preference"
-                                   ": ('12' for 12 hours format or '24' for 24 hours format) "))
-            if not self.error:
-                self.sleeping()
-                return self.activity_range()
+        question = input("Would you like to create your custom routine schedule? (yes|no) ").lower().strip()
+        if question == "yes":
+            super().__init__()
+            print(self)
+            self._avaiable_range = self.activity_range()
+        print(self.next_pomo())
 
     def pomodoro_timer(self):
-
-        if self.actual_time in self._avaiable_range:
+        right_now = int(datetime.now().strftime('%H'))
+        if right_now in self._avaiable_range:
             print("Okay, it's time to Pomo!\r\n")
 
             if input("Would you like to start your pomo? (yes|no) ").lower().strip() == "yes":
@@ -46,8 +39,8 @@ class User(Sleep, Pomodoro):
             print(self.next_pomo())
 
     def next_pomo(self):
-        time_h = self.actual_time
-        hours = self._wake_up - time_h
+        right_now = int(datetime.now().strftime('%H'))
+        hours = int(self.wake_up) + int(self.sleep) - right_now
         return f"Your next pomo is in {hours} hours."
 
     @property
@@ -57,3 +50,5 @@ class User(Sleep, Pomodoro):
 
 if __name__ == "__main__":
     conta = User()
+
+#  fix pomodoro_timer
