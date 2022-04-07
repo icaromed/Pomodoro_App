@@ -6,15 +6,17 @@ class Sleep(object):
     def __init__(self):
 
         q_sleep = input("When do you want to sleep? (01-24) ")
-        q_wake_up = input("When do tou want to wake up? (01-24) ")
+        q_wake_up = input("When do you want to wake up? (01-24) ")
 
         try:
             self._sleep = datetime.strptime(q_sleep, '%H').strftime('%H')
             self._wake_up = datetime.strptime(q_wake_up, '%H').strftime('%H')
+
         except ValueError:
             raise ValueError("Please insert a valid digit input")
 
-    def activity_range(self):
+    @property
+    def avaiable_range(self):
         true_range = ([int(self.wake_up), int(self.sleep) - 1])
         return range(true_range[0], true_range[1])
 
@@ -28,7 +30,7 @@ class Sleep(object):
 
     def __str__(self):
         return (f"\r\nGreat! So you're sleeping at {self.sleep}h "
-                f"and waking up at {self.wake_up}h\r\n")
+                f"and waking up at {self.wake_up}h")
 
 
 # for testing
